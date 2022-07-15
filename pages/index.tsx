@@ -1,15 +1,26 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import Header from '../components/header';
 
+import { Amplify, API, graphqlOperation } from "aws-amplify";
+import awsExports from '../src/aws-exports';
+Amplify.configure(awsExports);
+import { listInfos } from "../src/graphql/queries";
+
 const Home: NextPage = () => {
   const [select, setSelect] = useState(true);
-  const [state, setState] = useState({
-
-  });
+  const router = useRouter();
   const selectButton = ["bg-blue-500","bg-blue-200"];
+  const [info, setInfo] = useState<[]>([]);
+  const fetchInfo = async () => {
+    const request = await API.graphql(graphqlOperation(listInfos));
+    setInfo(request.data.listInfos.items);
+  };
+  useEffect(()=> {
+      fetchInfo();
+  },[])
 
   return (
     <div className='w-full h-screen bg-yellow-100'>
@@ -24,13 +35,29 @@ const Home: NextPage = () => {
               <div className='items-center justify-center flex-1 flex'>1번 스타일</div>
             </a>
           </Link>
-          <Link href={"./firstPage"}>
-            <a className='w-1/6 h-2/3 bg-red-500 mx-10 my-14 shadow-2xl rounded-3xl flex'>
-              <div className='items-center justify-center flex-1 flex'>2번 스타일</div>
-            </a>
-          </Link> 
         </> : 
-        <div>abc</div>
+          <>
+          {info.map((v)=>{
+            return (
+                <Link href={{
+                  pathname: `myresume/${v.id}`,
+                  query: {
+                    kname: v.kname,
+                    ename: v.ename,
+                    age: v.age,
+                    adr: v.adr,
+                    gender: v.gender,
+                    cp: v.cp,
+                    img: v.img,
+                  }
+              }} as={`myresume/${v.id}`}>
+                  <a className='w-1/6 h-2/3 bg-red-200 mx-10 my-14 shadow-2xl flex rounded-3xl'>
+                    <div className='items-center justify-center flex-1 flex'>{v.kname}</div>
+                  </a>
+                </Link>
+            )
+          })}
+          </>
         }
       </div> 
     </div>

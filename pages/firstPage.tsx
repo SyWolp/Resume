@@ -1,4 +1,3 @@
-import { info } from 'console';
 import { useEffect, useState } from 'react';
 import { useRouter } from "next/router";
 import Header from '../components/header';
@@ -11,26 +10,7 @@ Amplify.configure(awsExports);
 
 export default function FirstPage() {
 
-    interface mainInfo {
-        kname: string,
-        ename: string,
-        age: number,
-        adr: string,
-        gender: string,
-        cp: number,
-        img: string,
-    }
-
     const [fileImage, setFileImage] = useState(".");
-    const [firstInfoForm, setFirstInfoForm] = useState<mainInfo>({
-        kname: "",
-        ename: "",
-        age: 0,
-        adr: "",
-        gender: "",
-        cp:0,
-        img: ""
-    });
     const [firstInfo, setFirstInfo] = useState({
         kname: "",
         ename: "",
@@ -40,25 +20,19 @@ export default function FirstPage() {
         cp:0,
         img: ""
     });
-    const router = useRouter();
 
-
+    const valueOnChange = (content:any, name:string) => {
+        setFirstInfo({...firstInfo, [name]:content})
+    };
     function onImgChange(e:any) {
         if(e.target.files[0]) {
             setFirstInfo((pv)=> {return {...pv, img:URL.createObjectURL(e.target.files[0])}});
             setFileImage(URL.createObjectURL(e.target.files[0]));
         }
     }
-    console.log(firstInfo);
-    const valueOnChange = (ch:any, index:number,value:any,set:any) => {
-        const newContent = [...value];
-        console.log(newContent);
-        newContent[index].content = ch;
-        set(newContent);
-    };
+
     const dataSubmit = async (e:any) => {
         e.preventDefault();
-        console.log(firstInfo);
         await API.graphql(graphqlOperation(createInfos, {input: firstInfo}));
     }
 
@@ -71,7 +45,8 @@ export default function FirstPage() {
                     <input onChange={onImgChange} id="picture" type="file" className="hidden" accept="image/*" />
                 </label>
                 <div className="">
-                    <></>
+                    <input value={firstInfo.kname} onChange={(e)=>{valueOnChange(e.target.value, "kname")}} type={"text"}></input>
+                    <textarea wrap='hard' value={firstInfo.ename} onChange={(e)=>{valueOnChange(e.target.value, "ename")}} />
                 </div>
             </header>
             <button onClick={dataSubmit}>저장</button>
