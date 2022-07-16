@@ -11,6 +11,7 @@ export type CreateInfosInput = {
   cp: number,
   img: string,
   id?: string | null,
+  _version?: number | null,
 };
 
 export type ModelInfosConditionInput = {
@@ -90,6 +91,9 @@ export type Infos = {
   id: string,
   createdAt: string,
   updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
 };
 
 export type UpdateInfosInput = {
@@ -101,10 +105,12 @@ export type UpdateInfosInput = {
   cp?: number | null,
   img?: string | null,
   id: string,
+  _version?: number | null,
 };
 
 export type DeleteInfosInput = {
   id: string,
+  _version?: number | null,
 };
 
 export type ModelInfosFilterInput = {
@@ -124,6 +130,7 @@ export type ModelInfosConnection = {
   __typename: "ModelInfosConnection",
   items:  Array<Infos | null >,
   nextToken?: string | null,
+  startedAt?: number | null,
 };
 
 export type CreateInfosMutationVariables = {
@@ -144,6 +151,9 @@ export type CreateInfosMutation = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -165,6 +175,9 @@ export type UpdateInfosMutation = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -186,6 +199,9 @@ export type DeleteInfosMutation = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -206,6 +222,9 @@ export type GetInfosQuery = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -230,8 +249,43 @@ export type ListInfosQuery = {
       id: string,
       createdAt: string,
       updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
+    startedAt?: number | null,
+  } | null,
+};
+
+export type SyncInfosQueryVariables = {
+  filter?: ModelInfosFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  lastSync?: number | null,
+};
+
+export type SyncInfosQuery = {
+  syncInfos?:  {
+    __typename: "ModelInfosConnection",
+    items:  Array< {
+      __typename: "Infos",
+      kname: string,
+      ename: string,
+      age: number,
+      adr: string,
+      gender: string,
+      cp: number,
+      img: string,
+      id: string,
+      createdAt: string,
+      updatedAt: string,
+      _version: number,
+      _deleted?: boolean | null,
+      _lastChangedAt: number,
+    } | null >,
+    nextToken?: string | null,
+    startedAt?: number | null,
   } | null,
 };
 
@@ -248,6 +302,9 @@ export type OnCreateInfosSubscription = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -264,6 +321,9 @@ export type OnUpdateInfosSubscription = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
 
@@ -280,5 +340,8 @@ export type OnDeleteInfosSubscription = {
     id: string,
     createdAt: string,
     updatedAt: string,
+    _version: number,
+    _deleted?: boolean | null,
+    _lastChangedAt: number,
   } | null,
 };
