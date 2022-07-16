@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const selectButton = ["bg-blue-500","bg-blue-200"];
   const [info, setInfo] = useState<any[]>([]);
   const fetchInfo = async () => {
-    const request = await API.graphql(graphqlOperation(listInfos));
+    const request:any = await API.graphql(graphqlOperation(listInfos));
     setInfo(request.data.listInfos.items);
   };
   useEffect(()=> {
