@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const [select, setSelect] = useState(true);
   const router = useRouter();
   const selectButton = ["bg-blue-500","bg-blue-200"];
-  const [info, setInfo] = useState<[]>([]);
+  const [info, setInfo] = useState<any[]>([]);
   const fetchInfo = async () => {
     const request = await API.graphql(graphqlOperation(listInfos));
     setInfo(request.data.listInfos.items);
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
           <>
           {info.map((v)=>{
             return (
-                <Link href={{
+                <Link key={v.id} href={{
                   pathname: `myresume/${v.id}`,
                   query: {
                     kname: v.kname,
