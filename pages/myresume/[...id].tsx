@@ -4,13 +4,11 @@ import { useEffect, useState } from "react";
 export default function Detail() {
     const router = useRouter();
     console.log(router);
-        if(typeof router.query.ename === "string") {
-            let a = router.query.ename;
-            console.log(a);
-            a = a.replace(/(?:\r\n|\r|\n)/g,'\n');
-            console.log(a);
-            router.query.ename = a;
-        }
+        // if(typeof router.query.ename === "string") {
+        //     let a = router.query.ename;
+        //     a = a.replace(/(?:\r\n|\r|\n)/g,'\n');
+        //     router.query.ename = a;
+        // }
 
     return (
         <>

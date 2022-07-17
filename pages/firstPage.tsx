@@ -83,8 +83,26 @@ export default function FirstPage() {
                     </div>
                 </div>
             </header>
-            <main>
-                
+            <main className='w-full mt-5 bg-red-400'>
+                <div>
+                    <h2 className='w-full text-center text-lg'>최종 학력</h2>
+                    <div className='flex'>
+                        <select>
+                            <option>고졸</option>
+                            <option>2/3년제</option>
+                            <option>4년제</option>
+                        </select>
+                        <input type={"text"} placeholder="출신 학교 입력" value="" />
+                        <input type={"text"} placeholder="전공 입력" value="" />
+                        <input type={"text"} placeholder="재학 기간 입력" value="" />
+                        <select>
+                            <option>졸업</option>
+                            <option>중퇴</option>
+                            <option>휴학</option>
+                            <option>재학 중</option>
+                        </select>
+                    </div>
+                </div>
             </main>
             <button onClick={dataSubmit}>저장</button>
         </div>
