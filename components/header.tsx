@@ -10,7 +10,7 @@ export default function Header({title}:any) {
         <div className="w-full grid grid-cols-3">
             <div></div>
             <h1 className="mx-auto my-10 text-center text-5xl font-bold">{title}</h1>
-            <div className="mt-24 ml-14">작성 날짜 : {`${days.year}.${days.month}.${days.day}`}</div>
+            <div className="mt-24 ml-10">작성 날짜 : {`${days.year}.${days.month}.${days.day}`}</div>
         </div>
     )
 }
