@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Image from 'next/image';
 import Header from '../components/header';
 
@@ -17,7 +17,7 @@ export default function FirstPage() {
         ename: "",
         age: undefined,
         adr: "",
-        gender: "",
+        gender: "남자",
         cp: undefined,
         img: ""
     });
@@ -34,9 +34,13 @@ export default function FirstPage() {
     }
 
     const dataSubmit = async (e:any) => {
-        e.preventDefault();
-        console.log(firstInfo);
+        if(!firstInfo.adr || !firstInfo.kname || !firstInfo.ename || !firstInfo.gender || !firstInfo.img || !firstInfo.age || !firstInfo.cp) {
+            alert("기본 정보를 입력해주세요");
+        }else{
         await API.graphql(graphqlOperation(createInfos, {input: firstInfo}));
+        alert("저장되었습니다.");
+        Router.back();
+        }
     }
 
     return (
@@ -67,7 +71,7 @@ export default function FirstPage() {
                     <div className='flex-1 flex'>
                         <label className='flex-1'>
                             나이
-                            <input className='ml-1 pl-1 border w-20' value={firstInfo.age} onChange={(e)=>{valueOnChange(e.target.value, "age")}} type={"text"}></input>
+                            <input className='ml-1 pl-1 border w-20' value={firstInfo.age} onChange={(e)=>{valueOnChange(e.target.value, "age")}} type={"number"}></input>
                         </label>
                         <label className='flex-1'>
                             성별
@@ -79,7 +83,7 @@ export default function FirstPage() {
                         </label>
                         <label className='flex-1'>
                             핸드폰
-                            <input className='ml-1 pl-1 border w-28' value={firstInfo.cp} onChange={(e)=>{valueOnChange(e.target.value, "cp")}} type={"text"}></input>
+                            <input className='ml-1 pl-1 border w-28' value={firstInfo.cp} onChange={(e)=>{valueOnChange(e.target.value, "cp")}} type={"number"}></input>
                         </label>
                     </div>
                 </div>
