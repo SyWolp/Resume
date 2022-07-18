@@ -35,6 +35,7 @@ export default function FirstPage() {
 
     const dataSubmit = async (e:any) => {
         e.preventDefault();
+        console.log(firstInfo);
         await API.graphql(graphqlOperation(createInfos, {input: firstInfo}));
     }
 
@@ -83,19 +84,19 @@ export default function FirstPage() {
                     </div>
                 </div>
             </header>
-            <main className='w-full mt-5 bg-red-400'>
-                <div>
+            <main className='w-full mt-5'>
+                <div className='w-full h-20 bg-slate-50'>
                     <h2 className='w-full text-center text-lg'>최종 학력</h2>
-                    <div className='flex'>
-                        <select>
+                    <div className='flex w-full mt-2 justify-center'>
+                        <select className='pl-1 border-r'>
                             <option>고졸</option>
                             <option>2/3년제</option>
                             <option>4년제</option>
                         </select>
-                        <input type={"text"} placeholder="출신 학교 입력" value="" />
-                        <input type={"text"} placeholder="전공 입력" value="" />
-                        <input type={"text"} placeholder="재학 기간 입력" value="" />
-                        <select>
+                        <input className='w-36 pl-1 border-r' type={"text"} placeholder="출신 학교 입력" value="" />
+                        <input className='w-36 pl-1 border-r' type={"text"} placeholder="전공 입력" value="" />
+                        <input className='w-36 pl-1 border-r' type={"text"} placeholder="재학 기간 입력" value="" />
+                        <select className='pl-1'>
                             <option>졸업</option>
                             <option>중퇴</option>
                             <option>휴학</option>
